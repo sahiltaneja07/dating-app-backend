@@ -17,6 +17,6 @@ import { RouteModule } from './app.route';
         UserModule,
         AuthModule,
     ],
-    controllers: [AppController],
+    controllers: [AppController]
 })
 export class AppModule {}
