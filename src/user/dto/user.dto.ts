@@ -1,3 +1,12 @@
 export class UserDTO {
-    readonly email: string;
+    email: string;
+    isUserActive: boolean;
+    lastSeen: Date;
+    authToken: string;
+    firstName: string;
+    lastName: string;
+    dob: Date;
+    gender: string;
+    hometown: string;
+    isPremiumUser: boolean;
 }
