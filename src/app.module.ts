@@ -19,8 +19,8 @@ import { LikesModule } from './likes/likes.module';
         UserModule,
         AuthModule,
         LikesModule,
-    MatchesModule,
+        MatchesModule,
     ],
     controllers: [AppController],
 })
-export class AppModule {}
+export class AppModule { }
