@@ -9,18 +9,18 @@ import { MatchesModule } from './matches/matches.module';
 import { LikesModule } from './likes/likes.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-      isGlobal: true,
-    }),
-    MongooseModule.forRoot(process.env.MONGODB_URL),
-    RouteModule,
-    UserModule,
-    AuthModule,
-    LikesModule,
+    imports: [
+        ConfigModule.forRoot({
+            envFilePath: '.env',
+            isGlobal: true,
+        }),
+        MongooseModule.forRoot(process.env.MONGODB_URL),
+        RouteModule,
+        UserModule,
+        AuthModule,
+        LikesModule,
     MatchesModule,
-  ],
-  controllers: [AppController],
+    ],
+    controllers: [AppController],
 })
-export class AppModule { }
+export class AppModule {}
