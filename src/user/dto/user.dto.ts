@@ -1,6 +1,6 @@
 export class UserDTO {
     email: string;
-    isUserActive: boolean;
+    isNewUser: boolean;
     lastSeen: Date;
     authToken: string;
     firstName: string;

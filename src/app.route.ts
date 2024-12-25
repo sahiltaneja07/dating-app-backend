@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { LikesModule } from './likes/likes.module';
 
 @Module({
     imports: [
@@ -17,10 +18,14 @@ import { UserModule } from './user/user.module';
                         path: 'user',
                         module: UserModule,
                     },
+                    {
+                        path: 'likes',
+                        module: LikesModule,
+                    },
                 ],
             },
         ]),
     ],
 })
 
-export class RouteModule {}
+export class RouteModule { }
