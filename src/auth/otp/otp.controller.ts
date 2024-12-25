@@ -1,9 +1,17 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { OtpDTO } from './dto/otp.dto';
 import * as otpGenerator from 'otp-generator';
+import { OtpService } from './otp.service';
+import { ResponseService } from '../../shared/services/response.service';
 
 @Controller('otp')
 export class OtpController {
+
+    constructor(
+        private otpService: OtpService,
+        private responseService: ResponseService
+    ) {}
+
     @Post()
     async sendOtp(@Body() otpBody: OtpDTO): Promise<any> {
         const { email } = otpBody;
@@ -15,8 +23,8 @@ export class OtpController {
             lowerCaseAlphabets: false,
             specialChars: false,
         });
-        return otp;
-        // sendVerificationEmail(email, otp);
+        this.otpService.sendVerificationEmail(email, otp);
+        return this.responseService.sendResponse('200', otp);
         // await authService.saveOtp(email, otp);
         // res.status(200).json({
         //     status: 'success',

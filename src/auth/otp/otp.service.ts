@@ -1,12 +1,14 @@
-import { Injectable } from '@nestjs/common';
-import { Otp } from './schemas/otp.schema';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { MailSenderService } from '../../shared/services/mail-sender.service';
 
 @Injectable()
 export class OtpService {
 
-    sendVerificationEmail(email: string, otp: string): void {
+    constructor(private mailSenderService: MailSenderService) {}
+
+    async sendVerificationEmail(email: string, otp: string): Promise<any> {
         try {
-            const mailResponse = await mailSender(
+            await this.mailSenderService.sendEmail(
                 email,
                 "Verification Email",
                 `<h1>Please confirm your OTP</h1>
@@ -15,6 +17,7 @@ export class OtpService {
             );
         } catch (error) {
             console.log("Error occurred while sending email: ", error);
+            throw new InternalServerErrorException('Error occurred while sending email');
         }
     }
 }
