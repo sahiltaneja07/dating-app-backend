@@ -24,13 +24,7 @@ export class OtpController {
             specialChars: false,
         });
         this.otpService.sendVerificationEmail(email, otp);
-        return this.responseService.sendResponse('200', otp);
-        // await authService.saveOtp(email, otp);
-        // res.status(200).json({
-        //     status: 'success',
-        //     data: {
-        //         otp: otp,
-        //     },
-        // });
+        await this.otpService.saveOtp(email, otp);
+        return this.responseService.sendResponse(200, {otp});
     }
 }

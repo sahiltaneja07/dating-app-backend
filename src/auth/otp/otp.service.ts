@@ -1,10 +1,16 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { MailSenderService } from '../../shared/services/mail-sender.service';
+import { Otp } from './schemas/otp.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
 
 @Injectable()
 export class OtpService {
 
-    constructor(private mailSenderService: MailSenderService) {}
+    constructor(
+        private mailSenderService: MailSenderService,
+        @InjectModel(Otp.name) private otpModel: mongoose.Model<Otp>
+    ) {}
 
     async sendVerificationEmail(email: string, otp: string): Promise<any> {
         try {
@@ -18,6 +24,17 @@ export class OtpService {
         } catch (error) {
             console.log("Error occurred while sending email: ", error);
             throw new InternalServerErrorException('Error occurred while sending email');
+        }
+    }
+
+    async saveOtp(email: string, otp: string): Promise<any>{
+        const body = {
+            email,
+            otp
+        };
+        const otpDocument = await this.otpModel.create([body], {runValidators: true});
+        if (!otpDocument) {
+            throw new InternalServerErrorException('Error occurred while generating otp');
         }
     }
 }
