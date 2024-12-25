@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { RouteModule } from './app.route';
 import { MatchesModule } from './matches/matches.module';
+import { LikesModule } from './likes/likes.module';
 
 @Module({
     imports: [
@@ -17,8 +18,9 @@ import { MatchesModule } from './matches/matches.module';
         RouteModule,
         UserModule,
         AuthModule,
+        LikesModule,
         MatchesModule,
     ],
     controllers: [AppController],
 })
-export class AppModule {}
+export class AppModule { }

@@ -11,11 +11,15 @@ export class LikesService {
         @InjectModel(LikesSent.name) private likesSentModel: mongoose.Model<LikesSent>,
         @InjectModel(LikesReceived.name) private likesReceivedModel: mongoose.Model<LikesReceived>) { }
 
-    async getLikesSent(userId: string): Promise<User[]> {
-        // const likesSentList = await this.likesSentModel.find({ userId });
-        // if (!likesSentList) {
-        //     throw new NotFoundException('User not found');
-        // }
-        return null;
+    async create(data: any): Promise<any> {
+        return await this.likesSentModel.create(data);
+    }
+
+    async getLikesSent(userId: string): Promise<any> {
+        const likesSentList = await this.likesSentModel.find({ userId }).populate('like_sent_to').exec();;
+        if (!likesSentList) {
+            throw new NotFoundException('User not found');
+        }
+        return likesSentList;
     }
 }

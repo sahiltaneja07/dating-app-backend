@@ -12,7 +12,7 @@ export class User {
     email: string;
 
     @Prop({default: true})
-    isUserActive: boolean;
+    isNewUser: boolean;
     
     @Prop({default: Date.now})
     lastSeen: Date;

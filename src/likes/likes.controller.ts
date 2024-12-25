@@ -7,15 +7,15 @@ export class LikesController {
     constructor(private likesService: LikesService) { }
 
     // Get users list of likes sent
-    @Get(':userId')
-    async getLikesSent(@Param('userId') userId: string): Promise<User[]> {
+    @Get('sent/:userId')
+    async getLikesSent(@Param('userId') userId: string): Promise<any> {
         return this.likesService.getLikesSent(userId);
     }
 
     // Add like sent to the collection
-    @Post()
-    async addLikeSent() {
-
+    @Post('sent/add')
+    async addLikeSent(@Body() data: any): Promise<any> {
+        return this.likesService.create(data);
     }
 
     // Remove like sent from the collection
