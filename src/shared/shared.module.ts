@@ -6,4 +6,4 @@ import { ResponseService } from './services/response.service';
     providers: [MailSenderService, ResponseService],
     exports: [MailSenderService, ResponseService],
 })
-export class SharedModule {}
+export class SharedModule { }
