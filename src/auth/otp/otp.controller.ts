@@ -1,14 +1,14 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
 import { OtpDTO } from './dto/otp.dto';
 import * as otpGenerator from 'otp-generator';
-import { OtpService } from './otp.service';
 import { ResponseService } from '../../shared/services/response.service';
+import { AuthService } from '../auth.service';
 
 @Controller('otp')
 export class OtpController {
 
     constructor(
-        private otpService: OtpService,
+        private authService: AuthService,
         private responseService: ResponseService
     ) {}
 
@@ -23,8 +23,8 @@ export class OtpController {
             lowerCaseAlphabets: false,
             specialChars: false,
         });
-        this.otpService.sendVerificationEmail(email, otp);
-        await this.otpService.saveOtp(email, otp);
+        this.authService.sendVerificationEmail(email, otp);
+        await this.authService.saveOtp(email, otp);
         return this.responseService.sendResponse(200, {otp});
     }
 }

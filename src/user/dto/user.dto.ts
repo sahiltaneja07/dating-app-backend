@@ -1,4 +1,5 @@
 export class UserDTO {
+    _id?: string;
     email: string;
     isNewUser: boolean;
     lastSeen: Date;
