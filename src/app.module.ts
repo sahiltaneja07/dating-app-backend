@@ -7,6 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { RouteModule } from './app.route';
 import { MatchesModule } from './matches/matches.module';
 import { LikesModule } from './likes/likes.module';
+import { HttpExceptionFilter } from './http-exception.filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
     imports: [
@@ -22,5 +24,6 @@ import { LikesModule } from './likes/likes.module';
         MatchesModule,
     ],
     controllers: [AppController],
+    
 })
 export class AppModule { }
