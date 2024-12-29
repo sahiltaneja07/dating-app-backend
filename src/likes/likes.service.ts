@@ -16,7 +16,7 @@ export class LikesService {
     }
 
     async getLikesSent(userId: string): Promise<any> {
-        const likesSentList = await this.likesSentModel.find({ userId }).populate('like_sent_to').exec();;
+        const likesSentList = await this.likesSentModel.find({ userId }).populate('like_sent_to').exec();
         if (!likesSentList) {
             throw new NotFoundException('User not found');
         }

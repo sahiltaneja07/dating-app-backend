@@ -8,6 +8,8 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { ResponseService } from '../shared/services/response.service';
+import { ResponseDTO } from 'src/shared/dto/response.dto';
+import { User } from 'src/user/schemas/user.schema';
 
 @Controller()
 export class AuthController {
@@ -20,7 +22,7 @@ export class AuthController {
     @Post()
     async loginUser(
         @Body() loginBody: { email: string; otp: string },
-    ): Promise<any> {
+    ): Promise<ResponseDTO<User>> {
         const { email, otp } = loginBody;
         if (!(email && otp)) {
             throw new BadRequestException('Email or Otp field is missing');
