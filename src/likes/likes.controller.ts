@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { LikesService } from './likes.service';
-import { User } from 'src/user/schemas/user.schema';
 
 @Controller()
 export class LikesController {
@@ -15,25 +14,25 @@ export class LikesController {
     // Add like sent to the collection
     @Post('sent/add')
     async addLikeSent(@Body() data: any): Promise<any> {
-        return this.likesService.create(data);
+        return this.likesService.addLikeSent(data);
     }
 
     // Remove like sent from the collection
-    @Post()
-    async unlikeSent() {
-
+    @Delete('sent/:id')
+    async cancelLikeSent(@Param('id') id: string): Promise<boolean> {
+        return this.likesService.cancelLikeSent(id);
     }
 
     // Get users list of likes received
-    @Get()
-    async getLikesReceived() {
-
+    @Get('received/:userId')
+    async getLikesReceived(@Param('userId') userId: string): Promise<any> {
+        return this.likesService.getLikesReceived(userId);
     }
 
     // Add like received to the collection
-    @Post()
-    async addLikeReceived() {
-
+    @Post('received/add')
+    async addLikeReceived(@Body() data: any): Promise<any> {
+        return this.likesService.addLikeReceived(data);
     }
 
     // Shift the user details from LikesReceived collection to Matches collection
