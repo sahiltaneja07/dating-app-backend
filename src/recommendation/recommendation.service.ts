@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from './schemas/user.schema';
 import * as mongoose from 'mongoose';
+import { User } from 'src/user/schemas/user.schema';
 
 @Injectable()
-export class UserService {
+export class RecommendationService {
+
     constructor(@InjectModel(User.name) private userModel: mongoose.Model<User>) {}
+
+    async getAllRecommendedUsers(): Promise<User[]> {
+        return this.userModel.find({});
+    }
 }

@@ -3,6 +3,7 @@ import { RouterModule } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { LikesModule } from './likes/likes.module';
+import { RecommendationModule } from './recommendation/recommendation.module';
 
 @Module({
     imports: [
@@ -21,6 +22,10 @@ import { LikesModule } from './likes/likes.module';
                     {
                         path: 'likes',
                         module: LikesModule,
+                    },
+                    {
+                        path: 'recommendation',
+                        module: RecommendationModule,
                     },
                 ],
             },

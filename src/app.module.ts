@@ -9,6 +9,7 @@ import { MatchesModule } from './matches/matches.module';
 import { LikesModule } from './likes/likes.module';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { APP_FILTER } from '@nestjs/core';
+import { RecommendationModule } from './recommendation/recommendation.module';
 
 @Module({
     imports: [
@@ -22,6 +23,7 @@ import { APP_FILTER } from '@nestjs/core';
         AuthModule,
         LikesModule,
         MatchesModule,
+        RecommendationModule,
     ],
     controllers: [AppController],
     

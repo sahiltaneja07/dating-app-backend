@@ -3,17 +3,18 @@ import { OtpDTO } from './dto/otp.dto';
 import * as otpGenerator from 'otp-generator';
 import { ResponseService } from '../../shared/services/response.service';
 import { AuthService } from '../auth.service';
+import { Otp } from './schemas/otp.schema';
+import { ResponseDTO } from 'src/shared/dto/response.dto';
 
 @Controller('otp')
 export class OtpController {
-
     constructor(
         private authService: AuthService,
-        private responseService: ResponseService
+        private responseService: ResponseService,
     ) {}
 
     @Post()
-    async sendOtp(@Body() otpBody: OtpDTO): Promise<any> {
+    async sendOtp(@Body() otpBody: OtpDTO): Promise<ResponseDTO<string>> {
         const { email } = otpBody;
         if (!email) {
             throw new BadRequestException('Email field is missing');
@@ -25,6 +26,6 @@ export class OtpController {
         });
         this.authService.sendVerificationEmail(email, otp);
         await this.authService.saveOtp(email, otp);
-        return this.responseService.sendResponse(200, {otp});
+        return this.responseService.sendResponse(200, { otp });
     }
 }
