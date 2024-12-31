@@ -3,7 +3,6 @@ import { OtpDTO } from './dto/otp.dto';
 import * as otpGenerator from 'otp-generator';
 import { ResponseService } from '../../shared/services/response.service';
 import { AuthService } from '../auth.service';
-import { Otp } from './schemas/otp.schema';
 import { ResponseDTO } from 'src/shared/dto/response.dto';
 
 @Controller('otp')
@@ -26,6 +25,6 @@ export class OtpController {
         });
         this.authService.sendVerificationEmail(email, otp);
         await this.authService.saveOtp(email, otp);
-        return this.responseService.sendResponse(200, { otp });
+        return this.responseService.sendResponse(200, { message: 'OTP sent to the provided email' });
     }
 }

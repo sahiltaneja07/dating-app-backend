@@ -6,7 +6,6 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "nest": "nest g c auth",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -27,6 +26,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/mongoose": "^10.1.0",
     "@nestjs/platform-express": "^10.0.0",
+    "cookie-parser": "^1.4.7",
     "mongoose": "^8.9.2",
     "nodemailer": "^6.9.16",
     "otp-generator": "^4.0.1",
@@ -37,6 +37,7 @@
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
+    "@types/cookie-parser": "^1.4.8",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.2",
     "@types/node": "^20.3.1",

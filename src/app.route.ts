@@ -16,10 +16,6 @@ import { RecommendationModule } from './recommendation/recommendation.module';
                         module: AuthModule,
                     },
                     {
-                        path: 'user',
-                        module: UserModule,
-                    },
-                    {
                         path: 'likes',
                         module: LikesModule,
                     },
