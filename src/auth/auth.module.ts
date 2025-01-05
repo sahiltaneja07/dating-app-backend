@@ -6,7 +6,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { OtpSchema } from './otp/schemas/otp.schema';
 import { AuthService } from './auth.service';
 import { UserSchema } from '../user/schemas/user.schema';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [
@@ -15,7 +14,6 @@ import { JwtModule } from '@nestjs/jwt';
             { name: 'Otp', schema: OtpSchema },
             { name: 'User', schema: UserSchema },
         ]),
-        JwtModule.register({ secret: process.env.MY_JWT_TOKEN }),
     ],
     controllers: [AuthController, OtpController],
     providers: [AuthService],

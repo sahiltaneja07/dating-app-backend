@@ -8,7 +8,7 @@ async function bootstrap() {
     app.useGlobalFilters(new MongoFilter(), new HttpExceptionFilter());
     app.enableCors({
         credentials: true,
-        origin: process.env.FRONTEND_URL,
+        origin: process.env.CLIENT_URL,
     })
     app.use(cookieParser());
     await app.listen(process.env.PORT ?? 3000);

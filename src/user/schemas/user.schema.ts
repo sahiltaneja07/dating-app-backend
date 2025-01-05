@@ -21,7 +21,10 @@ export class User {
     lastSeen: Date;
 
     @Prop()
-    authToken: string;
+    accessToken: string;
+
+    @Prop()
+    refreshToken: string;
 
     @Prop({trim: true})
     firstName: string

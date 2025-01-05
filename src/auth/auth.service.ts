@@ -36,12 +36,12 @@ export class AuthService {
         return user[0];
     }
 
-    async loginUser(userId: mongoose.Types.ObjectId, authToken: string): Promise<UserDocument> {
+    async loginUser(userId: mongoose.Types.ObjectId, refreshToken: string): Promise<UserDocument> {
         await this.userModel.updateOne(
             { _id: userId },
             {
                 $set: {
-                    authToken,
+                    refreshToken,
                     lastSeen: Date.now(),
                     isNewUser: true,
                 },

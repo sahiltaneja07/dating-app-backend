@@ -3,7 +3,7 @@ export class UserDTO {
     email: string;
     isNewUser: boolean;
     lastSeen: Date;
-    authToken: string;
+    refreshToken: string;
     firstName: string;
     lastName: string;
     dob: Date;

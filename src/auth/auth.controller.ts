@@ -6,19 +6,19 @@ import {
     Post,
     Res,
 } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { ResponseService } from '../shared/services/response.service';
 import { ResponseDTO } from 'src/shared/dto/response.dto';
 import { User } from 'src/user/schemas/user.schema';
 import { Response } from 'express';
+import { TokenService } from 'src/shared/services/token.service';
 
 @Controller()
 export class AuthController {
     constructor(
         private authService: AuthService,
-        private jwtService: JwtService,
         private responseService: ResponseService,
+        private tokenService: TokenService
     ) {}
 
     @Post()
@@ -41,18 +41,13 @@ export class AuthController {
             user = await this.authService.registerUser(email);
             this.authService.sendRegistrationEmail(email);
         }
-        const authToken = this.jwtService.sign(
-            JSON.stringify({ email: user.email, id: user._id }),
-            {
-                secret: process.env.MY_JWT_TOKEN,
-            },
-        );
-        user = await this.authService.loginUser(user._id, authToken);
+        const {accessToken, refreshToken} = this.tokenService.buildTokens(user);
+        user = await this.authService.loginUser(user._id, refreshToken);
+        delete user.refreshToken;
+        user.accessToken = accessToken;
         await this.authService.deleteOtp(email);
-        // response.cookie('authToken', authToken, {
-        //     sameSite: 'none',
-        //     secure: true,
-        // });
+        this.tokenService.setTokens(response, accessToken, refreshToken);
         return this.responseService.sendResponse(200, { user });
     }
+
 }
