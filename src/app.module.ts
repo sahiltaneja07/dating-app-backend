@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -7,9 +7,8 @@ import { AuthModule } from './auth/auth.module';
 import { RouteModule } from './app.route';
 import { MatchesModule } from './matches/matches.module';
 import { LikesModule } from './likes/likes.module';
-import { HttpExceptionFilter } from './http-exception.filter';
-import { APP_FILTER } from '@nestjs/core';
 import { RecommendationModule } from './recommendation/recommendation.module';
+import { AuthMiddleware } from './auth.middleware';
 
 @Module({
     imports: [
@@ -26,6 +25,9 @@ import { RecommendationModule } from './recommendation/recommendation.module';
         RecommendationModule,
     ],
     controllers: [AppController],
-    
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(AuthMiddleware).forRoutes('api/likes', 'api/recommendation');
+    }
+}

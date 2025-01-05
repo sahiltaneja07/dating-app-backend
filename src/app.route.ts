@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { RouterModule } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
 import { LikesModule } from './likes/likes.module';
 import { RecommendationModule } from './recommendation/recommendation.module';
 

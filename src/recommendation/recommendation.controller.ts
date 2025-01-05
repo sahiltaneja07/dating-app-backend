@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Headers } from '@nestjs/common';
 import { User } from 'src/user/schemas/user.schema';
 import { RecommendationService } from './recommendation.service';
 import { ResponseService } from 'src/shared/services/response.service';
@@ -12,7 +12,8 @@ export class RecommendationController {
     ) {}
 
     @Get('users')
-    async getRecommendedUsers(): Promise<ResponseDTO<User[]>> {
+    async getRecommendedUsers(@Headers() headers): Promise<ResponseDTO<User[]>> {
+        console.log(headers?.userId, 'controller');
         const users = await this.recommendationService.getAllRecommendedUsers();
         return this.responseService.sendResponse(200, { users });
     }
