@@ -35,8 +35,8 @@ export class TokenService {
     }
 
     buildTokens(user: UserDocument) {
-        const accessPayload = {userId: user._id};
-        const refreshPayload = {userId: user._id, email: user.email};
+        const accessPayload = {userId: user._id, ts: Date.now()};
+        const refreshPayload = {userId: user._id, email: user.email, ts: Date.now()};
 
         const accessToken = this.signAccessToken(accessPayload);
         const refreshToken = this.signRefreshToken(refreshPayload);
@@ -44,8 +44,7 @@ export class TokenService {
         return {accessToken, refreshToken};
     }
 
-    setTokens(res: Response, accessToken: string, refreshToken?: string) {
-        res.cookie(CookieName.Access, accessToken);
-        if (refreshToken) res.cookie(CookieName.Refresh, refreshToken, this.cookieOptions);
+    setTokens(res: Response, refreshToken: string) {
+        res.cookie(CookieName.Refresh, refreshToken, this.cookieOptions);
     }
 }

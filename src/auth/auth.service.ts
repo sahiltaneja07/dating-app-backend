@@ -1,7 +1,4 @@
-import {
-    Injectable,
-    InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Otp } from './otp/schemas/otp.schema';
@@ -36,19 +33,31 @@ export class AuthService {
         return user[0];
     }
 
-    async loginUser(userId: mongoose.Types.ObjectId, refreshToken: string): Promise<UserDocument> {
+    async loginUser(
+        userId: mongoose.Types.ObjectId,
+        refreshToken: string,
+    ): Promise<UserDocument> {
+        return this.updateAndReturnUser(userId, refreshToken, true);
+    }
+
+    async updateAndReturnUser(
+        userId: mongoose.Types.ObjectId,
+        refreshToken: string,
+        isNewUser?: boolean,
+    ): Promise<UserDocument> {
+        const body = {
+            refreshToken,
+        };
+        if (isNewUser) {
+            body['isNewUser'] = true;
+        }
         await this.userModel.updateOne(
             { _id: userId },
             {
-                $set: {
-                    refreshToken,
-                    lastSeen: Date.now(),
-                    isNewUser: true,
-                },
+                $set: body,
             },
         );
-        const userDocument = await this.userModel.findOne({ _id: userId });
-        return userDocument;
+        return this.userModel.findOne({ _id: userId });
     }
 
     async saveOtp(email: string, otp: string): Promise<any> {

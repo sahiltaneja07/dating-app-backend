@@ -23,7 +23,9 @@ export class User {
     @Prop()
     accessToken: string;
 
-    @Prop()
+    @Prop({
+        select: false
+    })
     refreshToken: string;
 
     @Prop({trim: true})

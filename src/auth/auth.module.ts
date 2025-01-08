@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { OtpSchema } from './otp/schemas/otp.schema';
 import { AuthService } from './auth.service';
 import { UserSchema } from '../user/schemas/user.schema';
+import { RefreshController } from './refresh-token/refresh-token.controller';
 
 @Module({
     imports: [
@@ -15,7 +16,7 @@ import { UserSchema } from '../user/schemas/user.schema';
             { name: 'User', schema: UserSchema },
         ]),
     ],
-    controllers: [AuthController, OtpController],
+    controllers: [AuthController, OtpController, RefreshController],
     providers: [AuthService],
 })
 export class AuthModule {}
