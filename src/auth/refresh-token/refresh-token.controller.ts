@@ -3,7 +3,7 @@ import { Response, Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { ResponseService } from '../../shared/services/response.service';
 import { ResponseDTO } from 'src/shared/dto/response.dto';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/shared/services/user.service';
 import { TokenService } from 'src/shared/services/token.service';
 import { AuthService } from '../auth.service';
 import { User } from 'src/user/schemas/user.schema';
