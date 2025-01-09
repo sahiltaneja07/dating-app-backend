@@ -9,8 +9,8 @@ enum TokenExpiration {
 }
 
 enum CookieName {
-    Access = 'access',
-    Refresh = 'refresh'
+    Access = 'accessToken',
+    Refresh = 'refreshToken'
 }
 
 @Injectable()
@@ -44,7 +44,8 @@ export class TokenService {
         return {accessToken, refreshToken};
     }
 
-    setTokens(res: Response, refreshToken: string) {
+    setTokens(res: Response, accessToken: string, refreshToken: string) {
+        res.cookie(CookieName.Access, accessToken, this.cookieOptions);
         res.cookie(CookieName.Refresh, refreshToken, this.cookieOptions);
     }
 }

@@ -22,7 +22,7 @@ export class RefreshController {
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response
     ): Promise<ResponseDTO<User>> {
-        const refreshToken = req.cookies?.refresh;
+        const refreshToken = req.cookies?.refreshToken;
         console.log(refreshToken, 'refreshCookie');
         if (!refreshToken) {
             throw new UnauthorizedException('Unauthorized user');
@@ -44,8 +44,7 @@ export class RefreshController {
         }
         const {accessToken: newAccessToken, refreshToken: newRefreshToken} = this.tokenService.buildTokens(dbUser);
         const user = await this.authService.updateAndReturnUser(dbUser._id, newRefreshToken);
-        user.accessToken = newAccessToken;
-        this.tokenService.setTokens(res, refreshToken);
+        this.tokenService.setTokens(res, newAccessToken, newRefreshToken);
         return this.responseService.sendResponse(200, { user });
     }
 }

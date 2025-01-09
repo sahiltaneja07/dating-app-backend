@@ -20,9 +20,6 @@ export class User {
     @Prop({default: Date.now})
     lastSeen: Date;
 
-    @Prop()
-    accessToken: string;
-
     @Prop({
         select: false
     })

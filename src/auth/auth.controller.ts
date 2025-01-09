@@ -43,9 +43,8 @@ export class AuthController {
         }
         const {accessToken, refreshToken} = this.tokenService.buildTokens(user);
         user = await this.authService.loginUser(user._id, refreshToken);
-        user.accessToken = accessToken;
         await this.authService.deleteOtp(email);
-        this.tokenService.setTokens(response, refreshToken);
+        this.tokenService.setTokens(response, accessToken, refreshToken);
         return this.responseService.sendResponse(200, { user });
     }
 
