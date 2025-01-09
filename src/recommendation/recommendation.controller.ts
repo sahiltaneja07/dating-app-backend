@@ -13,8 +13,7 @@ export class RecommendationController {
 
     @Get('users')
     async getRecommendedUsers(@Headers() headers): Promise<ResponseDTO<User[]>> {
-        console.log(headers?.userId, 'controller');
-        const users = await this.recommendationService.getAllRecommendedUsers();
+        const users = await this.recommendationService.getAllRecommendedUsers(headers?.userId);
         return this.responseService.sendResponse(200, { users });
     }
 }

@@ -16,6 +16,9 @@ export class User {
 
     @Prop({default: true})
     isNewUser: boolean;
+
+    @Prop()
+    isOnboardingCompleted: boolean;
     
     @Prop({default: Date.now})
     lastSeen: Date;

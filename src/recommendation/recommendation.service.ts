@@ -8,7 +8,7 @@ export class RecommendationService {
 
     constructor(@InjectModel(User.name) private userModel: mongoose.Model<User>) {}
 
-    async getAllRecommendedUsers(): Promise<User[]> {
-        return this.userModel.find({});
+    async getAllRecommendedUsers(userId: string): Promise<User[]> {
+        return this.userModel.find({_id: {$ne: userId}});
     }
 }

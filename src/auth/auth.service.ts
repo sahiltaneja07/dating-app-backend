@@ -26,6 +26,7 @@ export class AuthService {
     async registerUser(email: string): Promise<UserDocument> {
         const body = {
             email,
+            isOnboardingCompleted: false
         };
         const user = await this.userModel.create([body], {
             runValidators: true,
