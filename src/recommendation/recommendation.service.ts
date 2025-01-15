@@ -9,6 +9,6 @@ export class RecommendationService {
     constructor(@InjectModel(User.name) private userModel: mongoose.Model<User>) {}
 
     async getAllRecommendedUsers(userId: string): Promise<User[]> {
-        return this.userModel.find({_id: {$ne: userId}});
+        return this.userModel.find({_id: {$ne: userId}}).limit(10);
     }
 }

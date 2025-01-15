@@ -43,6 +43,9 @@ export class User {
     @Prop()
     hometown: string;
 
+    @Prop({default: true})
+    isActive: boolean;
+    
     @Prop({default: false})
     isPremiumUser: boolean;
 }

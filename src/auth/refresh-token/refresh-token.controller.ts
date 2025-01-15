@@ -23,23 +23,23 @@ export class RefreshController {
         @Res({ passthrough: true }) res: Response
     ): Promise<ResponseDTO<User>> {
         const refreshToken = req.cookies?.refreshToken;
-        console.log(refreshToken, 'refreshCookie');
         if (!refreshToken) {
-            throw new UnauthorizedException('Unauthorized user');
+            throw new UnauthorizedException('RefreshToken Expired');
         }
-        res.clearCookie('refresh');
+        res.clearCookie('accessToken');
+        res.clearCookie('refreshToken');
 
         const dbUser = await this.userService.findUser('refreshToken', refreshToken);
         if (!dbUser) {
-            throw new UnauthorizedException('Unauthorized user');
+            throw new UnauthorizedException('RefreshToken Expired');
         }
 
         const cookieUser = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
         if (!cookieUser) {
-            throw new UnauthorizedException('Unauthorized user');
+            throw new UnauthorizedException('RefreshToken Expired');
         }
 
-        if (dbUser._id !== cookieUser.userId) {
+        if (dbUser._id.toString() !== cookieUser.userId) {
             throw new ForbiddenException();
         }
         const {accessToken: newAccessToken, refreshToken: newRefreshToken} = this.tokenService.buildTokens(dbUser);
